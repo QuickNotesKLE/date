@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Days Remaining</title>
+  <script>
+    // Set the target date here in YYYY-MM-DD format
+    const targetDate = new Date("2025-12-31");
+
+    function updateDaysRemaining() {
+      const currentDate = new Date();
+      const diffTime = targetDate - currentDate;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+      if (diffDays >= 0) {
+        // Store the remaining days in local storage
+        localStorage.setItem("daysRemaining", diffDays);
+        return diffDays;
+      } else {
+        // If the date has passed, reset to 0
+        localStorage.setItem("daysRemaining", 0);
+        return 0;
+      }
+    }
+
+    function displayDaysRemaining() {
+      const daysRemaining = updateDaysRemaining();
+      document.getElementById("daysRemaining").textContent = daysRemaining;
+    }
+
+    window.onload = displayDaysRemaining;
+  </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #daysRemaining {
+      font-size: 5rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div id="daysRemaining"></div>
+</body>
+</html>
